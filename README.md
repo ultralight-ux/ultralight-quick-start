@@ -8,7 +8,7 @@ This is a minimal Ultralight app you can use with the [Writing Your First App](h
 
 Before you build and run, you'll need to [install the prerequisites](https://docs.ultralig.ht/docs/installing-prerequisites) for your platform.
 
-## 2. Build the app
+## 2. Clone and build the app
 
 To build the app with CMake, run the following:
 
