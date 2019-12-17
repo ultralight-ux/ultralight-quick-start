@@ -10,7 +10,7 @@ Before you build and run, you'll need to [install the prerequisites](https://doc
 
 ## 2. Clone and build the app
 
-To build the app with CMake, run the following:
+To clone the repo and build, run the following:
 
 ```shell
 git clone https://github.com/ultralight-ux/ultralight-quick-start
