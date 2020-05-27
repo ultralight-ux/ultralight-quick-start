@@ -49,6 +49,18 @@ MACRO(ADD_APP source_list)
   link_directories("${ULTRALIGHT_LIBRARY_DIR}")
   link_libraries(UltralightCore AppCore Ultralight WebCore)
 
+  if (PORT MATCHES "UltralightLinux")
+    SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+    SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+    SET(CMAKE_INSTALL_RPATH "$\{ORIGIN\}")
+  endif ()
+
+  if (PORT MATCHES "UltralightMac")
+    SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+    SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+    SET(CMAKE_INSTALL_RPATH "@executable_path/")
+  endif ()
+
   add_executable(${APP_NAME} WIN32 MACOSX_BUNDLE ${source_list})
 
   if (APPLE)
@@ -65,8 +77,22 @@ MACRO(ADD_APP source_list)
   add_custom_command(TARGET ${APP_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${ULTRALIGHT_BINARY_DIR}" $<TARGET_FILE_DIR:${APP_NAME}>) 
 
+  if (PORT MATCHES "UltralightMac")
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD 
+      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicudata.dylib" $<TARGET_FILE_DIR:${APP_NAME}>
+      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicui18n.dylib" $<TARGET_FILE_DIR:${APP_NAME}>
+      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicuuc.dylib" $<TARGET_FILE_DIR:${APP_NAME}>)
+  endif ()
+
+  if (PORT MATCHES "UltralightLinux")
+    add_custom_command(TARGET ${APP_NAME} POST_BUILD 
+    COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicudata.so" $<TARGET_FILE_DIR:${APP_NAME}>
+    COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicui18n.so" $<TARGET_FILE_DIR:${APP_NAME}>
+    COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicuuc.so" $<TARGET_FILE_DIR:${APP_NAME}>)
+  endif ()
+
   if (APPLE)
-    set(ASSETS_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/../Resources") 
+    set(ASSETS_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/../Resources/assets") 
   else ()
     set(ASSETS_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/assets") 
   endif () 
@@ -80,6 +106,16 @@ MACRO(ADD_APP source_list)
     add_custom_command(TARGET ${APP_NAME} POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_directory "${ULTRALIGHT_INSPECTOR_DIR}" "${ASSETS_PATH}/inspector")
   endif ()
+
+  if (APPLE)
+    set(RESOURCES_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/../Resources/resources") 
+  else ()
+    set(RESOURCES_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/resources") 
+  endif () 
+
+  # Copy resources to resources path
+  add_custom_command(TARGET ${APP_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${ULTRALIGHT_BINARY_DIR}/resources/" "${RESOURCES_PATH}")
 
   add_dependencies(${APP_NAME} UltralightSDK)
 ENDMACRO()
