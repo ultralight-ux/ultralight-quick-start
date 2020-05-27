@@ -86,9 +86,11 @@ MACRO(ADD_APP source_list)
 
   if (PORT MATCHES "UltralightLinux")
     add_custom_command(TARGET ${APP_NAME} POST_BUILD 
-    COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicudata.so" $<TARGET_FILE_DIR:${APP_NAME}>
-    COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicui18n.so" $<TARGET_FILE_DIR:${APP_NAME}>
-    COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicuuc.so" $<TARGET_FILE_DIR:${APP_NAME}>)
+      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicudata.so" $<TARGET_FILE_DIR:${APP_NAME}>
+      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicui18n.so" $<TARGET_FILE_DIR:${APP_NAME}>
+      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicuuc.so" $<TARGET_FILE_DIR:${APP_NAME}>)
+
+    set_target_properties(${APP_NAME} PROPERTIES LINK_FLAGS "-Wl,-rpath-link,${SDK_ROOT}/lib/ -lfontconfig")
   endif ()
 
   if (APPLE)
