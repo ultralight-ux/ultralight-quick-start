@@ -77,22 +77,6 @@ MACRO(ADD_APP source_list)
   add_custom_command(TARGET ${APP_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${ULTRALIGHT_BINARY_DIR}" $<TARGET_FILE_DIR:${APP_NAME}>) 
 
-  if (PORT MATCHES "UltralightMac")
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD 
-      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicudata.dylib" $<TARGET_FILE_DIR:${APP_NAME}>
-      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicui18n.dylib" $<TARGET_FILE_DIR:${APP_NAME}>
-      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicuuc.dylib" $<TARGET_FILE_DIR:${APP_NAME}>)
-  endif ()
-
-  if (PORT MATCHES "UltralightLinux")
-    add_custom_command(TARGET ${APP_NAME} POST_BUILD 
-      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicudata.so" $<TARGET_FILE_DIR:${APP_NAME}>
-      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicui18n.so" $<TARGET_FILE_DIR:${APP_NAME}>
-      COMMAND ${CMAKE_COMMAND} -E copy "${SDK_ROOT}/lib/libicuuc.so" $<TARGET_FILE_DIR:${APP_NAME}>)
-
-    set_target_properties(${APP_NAME} PROPERTIES LINK_FLAGS "-Wl,-rpath-link,${SDK_ROOT}/lib/ -lfontconfig")
-  endif ()
-
   if (APPLE)
     set(ASSETS_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/../Resources/assets") 
   else ()
