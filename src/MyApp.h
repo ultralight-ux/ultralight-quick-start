@@ -24,10 +24,16 @@ public:
   virtual void OnResize(uint32_t width, uint32_t height) override;
 
   // This is called when the page finishes a load in the main frame.
-  virtual void OnFinishLoading(View* caller) override;
+  virtual void OnFinishLoading(ultralight::View* caller,
+                               uint64_t frame_id,
+                               bool is_main_frame,
+                               const String& url) override;
 
   // This is called when the DOM has loaded in the main frame. Update JS here.
-  virtual void OnDOMReady(View* caller) override;
+  virtual void OnDOMReady(ultralight::View* caller,
+                          uint64_t frame_id,
+                          bool is_main_frame,
+                          const String& url) override;
 
 protected:
   RefPtr<App> app_;

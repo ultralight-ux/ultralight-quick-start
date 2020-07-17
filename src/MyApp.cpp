@@ -80,8 +80,14 @@ void MyApp::OnResize(uint32_t width, uint32_t height) {
   overlay_->Resize(width, height);
 }
 
-void MyApp::OnFinishLoading(View* caller) {
+void MyApp::OnFinishLoading(ultralight::View* caller,
+                            uint64_t frame_id,
+                            bool is_main_frame,
+                            const String& url) {
 }
 
-void MyApp::OnDOMReady(View* caller) {
+void MyApp::OnDOMReady(ultralight::View* caller,
+                       uint64_t frame_id,
+                       bool is_main_frame,
+                       const String& url) {
 }
