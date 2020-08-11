@@ -17,11 +17,6 @@ MyApp::MyApp() {
     false, kWindowFlags_Titled | kWindowFlags_Resizable);
 
   ///
-  /// Set the title of our window.
-  ///
-  window_->SetTitle("MyApp");
-
-  ///
   /// Tell our app to use 'window' as our main window.
   ///
   /// This call is required before creating any overlays or calling App::Run
@@ -61,6 +56,12 @@ MyApp::MyApp() {
   /// View's OnFinishLoading and OnDOMReady events below.
   ///
   overlay_->view()->set_load_listener(this);
+
+  ///
+  /// Register our MyApp instance as a ViewListener so we can handle the
+  /// View's OnChangeCursor and OnChangeTitle events below.
+  ///
+  overlay_->view()->set_view_listener(this);
 }
 
 MyApp::~MyApp() {
@@ -71,12 +72,22 @@ void MyApp::Run() {
 }
 
 void MyApp::OnUpdate() {
+  ///
+  /// This is called repeatedly from the application's update loop.
+  ///
+  /// You should update any app logic here.
+  ///
 }
 
 void MyApp::OnClose() {
 }
 
 void MyApp::OnResize(uint32_t width, uint32_t height) {
+  ///
+  /// This is called whenever the window changes size (values in pixels).
+  ///
+  /// We resize our overlay here to take up the entire window.
+  ///
   overlay_->Resize(width, height);
 }
 
@@ -84,10 +95,38 @@ void MyApp::OnFinishLoading(ultralight::View* caller,
                             uint64_t frame_id,
                             bool is_main_frame,
                             const String& url) {
+  ///
+  /// This is called when a frame finishes loading on the page.
+  ///
 }
 
 void MyApp::OnDOMReady(ultralight::View* caller,
                        uint64_t frame_id,
                        bool is_main_frame,
                        const String& url) {
+  ///
+  /// This is called when a frame's DOM has finished loading on the page.
+  ///
+  /// This is the best time to setup any JavaScript bindings.
+  ///
+}
+
+void MyApp::OnChangeCursor(ultralight::View* caller,
+                           Cursor cursor) {
+  ///
+  /// This is called whenever the page requests to change the cursor.
+  ///
+  /// We update the main window's cursor here.
+  ///
+  window_->SetCursor(cursor);
+}
+
+void MyApp::OnChangeTitle(ultralight::View* caller,
+                          const String& title) {
+  ///
+  /// This is called whenever the page requests to change the title.
+  ///
+  /// We update the main window's title here.
+  ///
+  window_->SetTitle(title.utf8().data());
 }

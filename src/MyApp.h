@@ -5,7 +5,8 @@ using namespace ultralight;
 
 class MyApp : public AppListener,
               public WindowListener,
-              public LoadListener {
+              public LoadListener,
+              public ViewListener {
 public:
   MyApp();
 
@@ -14,7 +15,7 @@ public:
   // Start the run loop.
   virtual void Run();
 
-  // This is called continuously from the app's main loop. Update logic here.
+  // This is called continuously from the app's main loop.
   virtual void OnUpdate() override;
 
   // This is called when the window is closing.
@@ -23,17 +24,24 @@ public:
   // This is called whenever the window resizes.
   virtual void OnResize(uint32_t width, uint32_t height) override;
 
-  // This is called when the page finishes a load in the main frame.
+  // This is called when the page finishes a load in one of its frames.
   virtual void OnFinishLoading(ultralight::View* caller,
                                uint64_t frame_id,
                                bool is_main_frame,
                                const String& url) override;
 
-  // This is called when the DOM has loaded in the main frame. Update JS here.
+  // This is called when the DOM has loaded in one of its frames.
   virtual void OnDOMReady(ultralight::View* caller,
                           uint64_t frame_id,
                           bool is_main_frame,
                           const String& url) override;
+
+  // This is called when the page requests to change the Cursor.
+  virtual void OnChangeCursor(ultralight::View* caller,
+    Cursor cursor) override;
+
+  virtual void OnChangeTitle(ultralight::View* caller,
+    const String& title) override;
 
 protected:
   RefPtr<App> app_;
