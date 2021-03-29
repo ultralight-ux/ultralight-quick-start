@@ -19,10 +19,10 @@ public:
   virtual void OnUpdate() override;
 
   // This is called when the window is closing.
-  virtual void OnClose() override;
+  virtual void OnClose(ultralight::Window* window) override;
 
   // This is called whenever the window resizes.
-  virtual void OnResize(uint32_t width, uint32_t height) override;
+  virtual void OnResize(ultralight::Window* window, uint32_t width, uint32_t height) override;
 
   // This is called when the page finishes a load in one of its frames.
   virtual void OnFinishLoading(ultralight::View* caller,

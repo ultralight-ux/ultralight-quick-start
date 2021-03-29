@@ -17,13 +17,6 @@ MyApp::MyApp() {
     false, kWindowFlags_Titled | kWindowFlags_Resizable);
 
   ///
-  /// Tell our app to use 'window' as our main window.
-  ///
-  /// This call is required before creating any overlays or calling App::Run
-  ///
-  app_->set_window(*window_.get());
-
-  ///
   /// Create our HTML overlay-- we don't care about its initial size and
   /// position because it'll be calculated when we call OnResize() below.
   ///
@@ -32,7 +25,7 @@ MyApp::MyApp() {
   ///
   /// Force a call to OnResize to perform size/layout of our overlay.
   ///
-  OnResize(window_->width(), window_->height());
+  OnResize(window_.get(), window_->width(), window_->height());
 
   ///
   /// Load a page into our overlay's View
@@ -79,10 +72,11 @@ void MyApp::OnUpdate() {
   ///
 }
 
-void MyApp::OnClose() {
+void MyApp::OnClose(ultralight::Window* window) {
+  app_->Quit();
 }
 
-void MyApp::OnResize(uint32_t width, uint32_t height) {
+void MyApp::OnResize(ultralight::Window* window, uint32_t width, uint32_t height) {
   ///
   /// This is called whenever the window changes size (values in pixels).
   ///
