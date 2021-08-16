@@ -5,6 +5,7 @@ include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 set(SDK_ROOT "${CMAKE_BINARY_DIR}/SDK/")
 set(ULTRALIGHT_INCLUDE_DIR "${SDK_ROOT}/include")
 set(ULTRALIGHT_BINARY_DIR "${SDK_ROOT}/bin")
+set(ULTRALIGHT_RESOURCES_DIR "${SDK_ROOT}/resources")
 set(ULTRALIGHT_INSPECTOR_DIR "${SDK_ROOT}/inspector")
 
 if (UNIX)
@@ -77,11 +78,12 @@ MACRO(ADD_APP source_list)
   add_custom_command(TARGET ${APP_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${ULTRALIGHT_BINARY_DIR}" $<TARGET_FILE_DIR:${APP_NAME}>) 
 
+  # Set the assets path to "/assets" or "/../Resources/assets" on macOS
   if (APPLE)
     set(ASSETS_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/../Resources/assets") 
   else ()
     set(ASSETS_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/assets") 
-  endif () 
+  endif ()
 
   # Copy assets to assets path
   add_custom_command(TARGET ${APP_NAME} POST_BUILD
@@ -93,15 +95,9 @@ MACRO(ADD_APP source_list)
       COMMAND ${CMAKE_COMMAND} -E copy_directory "${ULTRALIGHT_INSPECTOR_DIR}" "${ASSETS_PATH}/inspector")
   endif ()
 
-  if (APPLE)
-    set(RESOURCES_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/../Resources/resources") 
-  else ()
-    set(RESOURCES_PATH "$<TARGET_FILE_DIR:${APP_NAME}>/resources") 
-  endif () 
-
-  # Copy resources to resources path
+  # Copy resources to assets directory
   add_custom_command(TARGET ${APP_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory "${ULTRALIGHT_BINARY_DIR}/resources/" "${RESOURCES_PATH}")
-
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${ULTRALIGHT_RESOURCES_DIR}" "${ASSETS_PATH}/resources")
+    
   add_dependencies(${APP_NAME} UltralightSDK)
 ENDMACRO()
