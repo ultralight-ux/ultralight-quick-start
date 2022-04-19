@@ -20,7 +20,7 @@ MyApp::MyApp() {
   /// Create our HTML overlay-- we don't care about its initial size and
   /// position because it'll be calculated when we call OnResize() below.
   ///
-  overlay_ = Overlay::Create(*window_.get(), 1, 1, 0, 0);
+  overlay_ = Overlay::Create(window_, 1, 1, 0, 0);
 
   ///
   /// Force a call to OnResize to perform size/layout of our overlay.
