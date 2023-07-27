@@ -15,13 +15,9 @@ To clone the repo and build, run the following:
 ```shell
 git clone https://github.com/ultralight-ux/ultralight-quick-start
 cd ultralight-quick-start
-mkdir build
-cd build
-cmake ..
-cmake --build . --config Release
+cmake -B build
+cmake --build build --config Release
 ```
-
-> **Note**: _To force CMake to generate 64-bit projects on Windows, use `cmake .. -DCMAKE_GENERATOR_PLATFORM=x64` instead of `cmake ..`_
 
 ## 3. Run the app
 

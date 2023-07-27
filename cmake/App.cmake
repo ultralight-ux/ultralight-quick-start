@@ -26,16 +26,13 @@ else ()
   message(FATAL_ERROR "Unknown OS '${CMAKE_SYSTEM_NAME}'")
 endif ()
 
-if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-  set(ARCHITECTURE "x64")
-else ()
-  set(ARCHITECTURE "x86")
-endif ()
+set(ARCHITECTURE "x64")
+set(VERSION "1.3.0")
 
-set(S3_DOMAIN ".sfo2.cdn.digitaloceanspaces.com")
+set(BASE_URL "github.com/ultralight-ux/Ultralight/releases/download")
 
 ExternalProject_Add(UltralightSDK
-  URL https://ultralight-sdk${S3_DOMAIN}/ultralight-sdk-latest-${PLATFORM}-${ARCHITECTURE}.7z
+  URL https://${BASE_URL}/v${VERSION}/ultralight-sdk-${VERSION}-${PLATFORM}-${ARCHITECTURE}.7z
   SOURCE_DIR "${SDK_ROOT}"
   BUILD_IN_SOURCE 1
   CONFIGURE_COMMAND ""
