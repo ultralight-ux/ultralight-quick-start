@@ -2,3 +2,5 @@
 [Bb]uild/
 build_*/
 .DS_Store
+.vs/
+SDK/*

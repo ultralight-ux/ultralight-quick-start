@@ -32,5 +32,7 @@
 	<string>${MACOSX_BUNDLE_COPYRIGHT}</string>
 	<key>NSHighResolutionCapable</key>
 	<string>true</string>
+	<key>NSAppSandbox</key>
+    <true/>
 </dict>
 </plist>

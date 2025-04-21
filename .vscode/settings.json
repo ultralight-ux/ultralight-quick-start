@@ -1,0 +1,29 @@
+{
+  "cmake.configureOnOpen": true,
+  "cmake.generator": "Visual Studio 17 2022",
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.installPrefix": "${workspaceFolder}/build/out",
+  "cmake.defaultVariants": {
+    "buildType": {
+      "default": "Release",
+      "description": "The build type",
+      "choices": {
+        "debug": {
+          "short": "Debug",
+          "long": "Disable optimizations - include debug information",
+          "buildType": "Debug"
+        },
+        "release": {
+          "short": "Release",
+          "long": "Optimize for speed - exclude debug information",
+          "buildType": "Release"
+        }
+      }
+    }
+  },
+  "files.associations": {
+    "*.h": "cpp",
+    "*.cpp": "cpp",
+    "*.c": "c"
+  }
+}

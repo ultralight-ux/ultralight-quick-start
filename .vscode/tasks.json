@@ -1,0 +1,43 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configure (Release)",
+      "type": "shell",
+      "command": "cmake -B build -DCMAKE_BUILD_TYPE=Release",
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Configure (Debug)",
+      "type": "shell",
+      "command": "cmake -B build -DCMAKE_BUILD_TYPE=Debug",
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Build (Release)",
+      "type": "shell",
+      "command": "cmake --build build --config Release && cmake --install build --config Release",
+      "problemMatcher": ["$gcc", "$msCompile"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Build (Debug)",
+      "type": "shell",
+      "command": "cmake --build build --config Debug && cmake --install build --config Debug",
+      "problemMatcher": ["$gcc", "$msCompile"],
+      "group": "build"
+    },
+    {
+      "label": "Clean",
+      "type": "shell",
+      "command": "cmake --build build --target clean",
+      "problemMatcher": [],
+      "group": "build"
+    }
+  ]
+}

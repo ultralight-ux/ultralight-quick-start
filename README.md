@@ -4,30 +4,42 @@ __Clone this repo to try a simple Ultralight app!__
 
 This is a minimal Ultralight app you can use with the [Writing Your First App](https://docs.ultralig.ht/docs/writing-your-first-app) article in the Ultralight documentation.
 
-## 1. Install the Prerequisites
+## 1. Install prerequisites
 
 Before you build and run, you'll need to [install the prerequisites](https://docs.ultralig.ht/docs/installing-prerequisites) for your platform.
 
-## 2. Clone and build the app
+You'll also need Visual Studio Code to build and run this app.
 
-To clone the repo and build, run the following:
+## 2. Clone the repo
+
+Clone the repo if you haven't done so already:
 
 ```shell
-git clone https://github.com/ultralight-ux/ultralight-quick-start
-cd ultralight-quick-start
-cmake -B build
-cmake --build build --config Release
+git clone git@github.com:ultralight-ux/ultralight-quick-start.git
 ```
 
-## 3. Run the app
+## 3. Download the SDK and extract it
 
-### On macOS and Linux
+[Download the Ultralight SDK](https://ultralig.ht/download) and extract the contents to `ultralight-quick-start/SDK`.
 
-Navigate to `ultralight-quick-start/build` and run `MyApp` to launch the program.
+## 4. Open in VS Code
 
-### On Windows
+### Building the app
 
-Navigate to `ultralight-quick-start/build/Release` and run `MyApp` to launch the program.
+1. Open the `ultralight-quick-start` folder in VS Code
+2. Install the recommended extensions when prompted (C/C++ and CMake Tools)
+3. Select your preferred build preset (Release or Debug) when prompted
+4. Build the project using one of these methods:
+   - Click the "Build" button in the CMake status bar
+   - Run the "Build (Release)" or "Build (Debug)" task from the Terminal menu
+   - Press F7 to build with the default configuration
+
+### Running / debugging the app
+
+After building, you can run and debug the app:
+- Open the "Run and Debug" view (Ctrl+Shift+D)
+- Select "MyApp" from the dropdown
+- Press F5 to start debugging or Ctrl+F5 to run without debugging
 
 ## Further Reading
 

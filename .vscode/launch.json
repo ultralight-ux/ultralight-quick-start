@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "MyApp",
+      "request": "launch",
+      "type": "lldb",
+      "windows": {
+        "type": "cppvsdbg",
+        "program": "${workspaceFolder}/build/out/MyApp/MyApp.exe",
+        "cwd": "${workspaceFolder}/build/out/MyApp"
+      },
+      "osx": {
+        "type": "lldb",
+        "program": "${workspaceFolder}/build/out/MyApp/MyApp.app/Contents/MacOS/MyApp",
+        "cwd": "${workspaceFolder}/build/out/MyApp/MyApp.app/Contents/MacOS"
+      },
+      "linux": {
+        "type": "lldb",
+        "program": "${workspaceFolder}/build/out/MyApp/MyApp",
+        "cwd": "${workspaceFolder}/build/out/MyApp"
+      },
+      "args": [],
+      "stopAtEntry": false,
+      "environment": [],
+      "externalConsole": false
+    }
+  ]
+}
